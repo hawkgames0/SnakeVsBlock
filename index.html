@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Snake Vs Block — Privacy Policy & Terms of Service</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.8;
+      color: #1a1a2e;
+      min-height: 100vh;
+      padding: 40px 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Dynamic Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(135deg, #0f4c8a 0%, #1e6bd6 50%, #f4c700 100%),
+        radial-gradient(circle at 20% 30%, rgba(244, 199, 0, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(244, 199, 0, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(15, 76, 138, 0.3) 0%, transparent 60%);
+      background-size: cover;
+      z-index: -2;
+      animation: gradientShift 25s ease infinite;
+    }
+
+    /* Cube/Block Pattern */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: -1;
+      opacity: 0.6;
+      animation: cubeMove 40s linear infinite;
+    }
+
+    /* Floating Balls */
+    .ball {
+      position: absolute;
+      border-radius: 50%;
+      background: #f4c700;
+      box-shadow: 0 0 20px #f4c700, 0 0 40px rgba(244, 199, 0, 0.6);
+      z-index: -1;
+      animation: floatBall 28s linear infinite;
+      opacity: 0.35;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes cubeMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(40px, 40px); }
+    }
+
+    @keyframes floatBall {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(var(--x), var(--y)) rotate(360deg); }
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 45px;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      animation: slideIn 0.5s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #0f4c8a 0%, #f4c700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 35px;
+      margin-bottom: 20px;
+      color: #0f4c8a;
+      border-bottom: 3px solid #0f4c8a;
+      padding-bottom: 12px;
+      font-weight: 600;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      color: #f4c700;
+      margin-top: 20px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 15px 0;
+      color: #333;
+      font-size: 1.05rem;
+    }
+
+    ul {
+      margin: 15px 0 20px 40px;
+      list-style: none;
+    }
+
+    ul li {
+      margin: 12px 0;
+      padding-left: 25px;
+      position: relative;
+      color: #333;
+      font-size: 1.05rem;
+    }
+
+    ul li:before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #0f4c8a;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .meta {
+      font-size: 1.05rem;
+      color: #666;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .meta a {
+      color: #0f4c8a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .meta a:hover {
+      color: #f4c700;
+      text-decoration: underline;
+    }
+
+    nav {
+      margin: 30px 0;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #0f4c8a 0%, #f4c700 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(15, 76, 138, 0.4);
+    }
+
+    nav a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(15, 76, 138, 0.6);
+    }
+
+    .notice {
+      background: linear-gradient(135deg, #f4c700 0%, #ffe066 100%);
+      border-left: 5px solid #0f4c8a;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 25px 0;
+      color: #0f4c8a;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(15, 76, 138, 0.2);
+    }
+
+    hr {
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #0f4c8a, transparent);
+      margin: 40px 0;
+    }
+
+    strong {
+      color: #0f4c8a;
+      font-weight: 600;
+    }
+
+    a {
+      color: #0f4c8a;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #f4c700;
+      text-decoration: underline;
+    }
+
+    footer {
+      font-size: 0.95rem;
+      color: #666;
+      margin-top: 40px;
+      padding-top: 25px;
+      border-top: 2px solid #f0f0f0;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px;
+      }
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.4rem; }
+      nav { flex-direction: column; }
+      nav a { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating Balls / Snake Elements -->
+  <div class="ball" style="width: 35px; height: 35px; top: 15%; left: 10%; animation-delay: 0s; --x: 180px; --y: 220px;"></div>
+  <div class="ball" style="width: 22px; height: 22px; top: 28%; left: 82%; animation-delay: 3s; --x: -140px; --y: 190px;"></div>
+  <div class="ball" style="width: 48px; height: 48px; top: 55%; left: 18%; animation-delay: 7s; --x: 160px; --y: -210px;"></div>
+  <div class="ball" style="width: 25px; height: 25px; top: 72%; left: 78%; animation-delay: 11s; --x: -90px; --y: 160px;"></div>
+  <div class="ball" style="width: 32px; height: 32px; top: 22%; left: 65%; animation-delay: 15s; --x: 130px; --y: -180px;"></div>
+  <div class="ball" style="width: 18px; height: 18px; top: 45%; left: 35%; animation-delay: 20s; --x: -110px; --y: 240px;"></div>
+
+  <div class="container">
+
+    <h1>Snake Vs Block — Privacy Policy & Terms of Service</h1>
+    <div class="meta">
+      Developed by Hawk Games • Contact:
+      <a href="mailto:hawkgamesupport@gmail.com">hawkgamesupport@gmail.com</a>
+    </div>
+
+    <nav>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#terms">Terms of Service</a>
+    </nav>
+
+    <p class="notice"><strong>Effective Date:</strong> 06 June 2026</p>
+
+    <hr />
+
+    <!-- ================= PRIVACY POLICY ================= -->
+    <section id="privacy">
+      <h2>Privacy Policy</h2>
+
+      <p>
+        Welcome to <strong>Snake Vs Block</strong> ("we", "our", or "us").
+        Snake Vs Block is a mobile game developed and published by
+        <strong>Hawk Games</strong>, an independent individual developer.
+        This Privacy Policy explains how information is collected, used,
+        and protected when you use our app.
+      </p>
+
+      <h3>1. Information We Collect</h3>
+      <ul>
+        <li><strong>Gameplay Data:</strong> progress, scores, achievements, and game settings.</li>
+        <li><strong>Device & Technical Data:</strong> device model, operating system version, app version, language, IP address, crash logs, and diagnostics.</li>
+        <li><strong>Analytics Data:</strong> usage and performance data collected through services such as Firebase Analytics.</li>
+        <li><strong>Advertising Data:</strong> our app may use advertising services such as Google AdMob which may collect advertising identifiers, device identifiers, IP address, and interaction data.</li>
+        <li><strong>Advertising ID:</strong> the app may access the device advertising ID for advertising and analytics purposes. Users can reset or limit this identifier in device settings.</li>
+        <li><strong>Payment Data:</strong> in-app purchase transactions processed by Google Play or Apple App Store. We do not store payment card details.</li>
+        <li><strong>Game Services:</strong> if you sign in using Google Play Games, basic information such as player ID, display name, and achievements may be used for leaderboards and game services.</li>
+      </ul>
+
+      <h3>2. How We Use Information</h3>
+      <ul>
+        <li>to provide and improve gameplay experience;</li>
+        <li>to save progress and settings;</li>
+        <li>to analyze crashes and performance;</li>
+        <li>to process in-app purchases;</li>
+        <li>to prevent cheating, fraud, and abuse;</li>
+        <li>to display advertisements within the game.</li>
+      </ul>
+
+      <h3>3. Sharing of Information</h3>
+      <p>We do not sell or rent personal information. Data may be shared only with trusted service providers such as:</p>
+      <ul>
+        <li>Google Firebase (analytics and crash reporting)</li>
+        <li>Google AdMob (advertising services)</li>
+        <li>Google Play Store or Apple App Store (payment processing)</li>
+        <li>Legal authorities when required by law</li>
+      </ul>
+
+      <h3>4. Data Retention</h3>
+      <p>Data is retained only as long as necessary to provide the service or comply with legal obligations. When no longer needed, data is deleted or anonymized.</p>
+
+      <h3>5. Your Rights</h3>
+      <ul>
+        <li>request access to your data;</li>
+        <li>request correction or deletion;</li>
+        <li>withdraw consent for optional features.</li>
+      </ul>
+      <p>Requests can be sent to <a href="mailto:hawkgamesupport@gmail.com">hawkgamesupport@gmail.com</a>.</p>
+
+      <h3>6. Children’s Privacy</h3>
+      <p>Snake Vs Block is intended for a general audience. We do not knowingly collect personal information from children under the required age without parental consent.</p>
+
+      <h3>7. Security</h3>
+      <p>Reasonable technical and organizational measures are used to protect information. However, no online service is completely secure.</p>
+
+      <h3>8. International Data Processing</h3>
+      <p>Data may be processed on servers located outside your country. Appropriate safeguards are applied where required.</p>
+
+      <h3>9. Changes to This Policy</h3>
+      <p>This policy may be updated periodically. Updates will be reflected on this page with a revised effective date.</p>
+
+      <h3>10. Data Deletion</h3>
+      <p>You may request deletion of your account and associated data at any time by emailing: <a href="mailto:hawkgamesupport@gmail.com">hawkgamesupport@gmail.com</a>.</p>
+
+      <h3>11. Third-Party SDKs</h3>
+      <p>The app may integrate third-party SDKs which may collect information according to their own privacy policies. These services include:</p>
+      <ul>
+        <li>Google Firebase</li>
+        <li>Google AdMob</li>
+      </ul>
+      <p>More information about Google's privacy practices can be found here: <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></p>
+
+      <h3>12. Contact</h3>
+      <p>Developer: Hawk Games<br />Email: <a href="mailto:hawkgamesupport@gmail.com">hawkgamesupport@gmail.com</a></p>
+    </section>
+
+    <hr />
+
+    <!-- ================= TERMS OF SERVICE ================= -->
+    <section id="terms">
+      <h2>Terms of Service</h2>
+
+      <p>By downloading or using Snake Vs Block, you agree to these Terms. If you do not agree, please do not use the app.</p>
+
+      <h3>1. Use of the App</h3>
+      <p>You agree to use the app lawfully and not attempt to exploit, cheat, or disrupt gameplay or services.</p>
+
+      <h3>2. Virtual Items</h3>
+      <p>Virtual items and currency have no real-world value and are licensed, not sold. Refunds are handled by the app store.</p>
+
+      <h3>3. Account Termination</h3>
+      <p>Accounts may be suspended or terminated for violations of these Terms.</p>
+
+      <h3>4. Disclaimer</h3>
+      <p>The app is provided "as is" without warranties of any kind.</p>
+
+      <h3>5. Limitation of Liability</h3>
+      <p>Hawk Games shall not be liable for indirect or consequential damages arising from use of the app.</p>
+
+      <h3>6. Changes to Terms</h3>
+      <p>Terms may be updated from time to time. Continued use indicates acceptance.</p>
+
+      <h3>7. Contact</h3>
+      <p>Email: <a href="mailto:hawkgamesupport@gmail.com">hawkgamesupport@gmail.com</a></p>
+    </section>
+
+    <footer>
+      <p>
+        Last updated: <em>06 June 2026</em><br />
+        © Hawk Games
+      </p>
+    </footer>
+
+  </div>
+</body>
+
+</html>
